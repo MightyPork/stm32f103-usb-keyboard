@@ -282,8 +282,28 @@ typedef enum
 /** @addtogroup GPIO_Exported_Functions_Group1
   * @{
   */
-void  HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init);
-void  HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Initializes the GPIOx peripheral according to the specified parameters in the GPIO_Init.
+  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
+  * @param  GPIO_Init: pointer to a GPIO_InitTypeDef structure that contains
+  *         the configuration information for the specified GPIO peripheral.
+  * @retval None
+  */
+void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init);
+
+
+/*- injected dox -*/
+/**
+  * @brief  De-initializes the GPIOx peripheral registers to their default reset values.
+  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
+  * @param  GPIO_Pin: specifies the port bit to be written.
+  *         This parameter can be one of GPIO_PIN_x where x can be (0..15).
+  * @retval None
+  */
+void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin);
 /**
   * @}
   */
@@ -292,11 +312,70 @@ void  HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin);
 /** @addtogroup GPIO_Exported_Functions_Group2
   * @{
   */
+
+
+/*- injected dox -*/
+/**
+  * @brief  Reads the specified input port pin.
+  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
+  * @param  GPIO_Pin: specifies the port bit to read.
+  *         This parameter can be GPIO_PIN_x where x can be (0..15).
+  * @retval The input port pin value.
+  */
 GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
-void          HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
-void          HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Sets or clears the selected data port bit.
+  * 
+  * @note   This function uses GPIOx_BSRR register to allow atomic read/modify 
+  *         accesses. In this way, there is no risk of an IRQ occurring between
+  *         the read and the modify access.
+  *               
+  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
+  * @param  GPIO_Pin: specifies the port bit to be written.
+  *          This parameter can be one of GPIO_PIN_x where x can be (0..15).
+  * @param  PinState: specifies the value to be written to the selected bit.
+  *          This parameter can be one of the GPIO_PinState enum values:
+  *            @arg GPIO_BIT_RESET: to clear the port pin
+  *            @arg GPIO_BIT_SET: to set the port pin
+  * @retval None
+  */
+void HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Toggles the specified GPIO pin
+  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral 
+  * @param  GPIO_Pin: Specifies the pins to be toggled.
+  * @retval None
+  */
+void HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+
+
+/*- injected dox -*/
+/**
+* @brief  Locks GPIO Pins configuration registers.
+* @note   The locking mechanism allows the IO configuration to be frozen. When the LOCK sequence
+*         has been applied on a port bit, it is no longer possible to modify the value of the port bit until
+*         the next reset.
+* @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
+* @param  GPIO_Pin: specifies the port bit to be locked.
+*         This parameter can be any combination of GPIO_Pin_x where x can be (0..15).
+* @retval None
+*/
 HAL_StatusTypeDef HAL_GPIO_LockPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
-void          HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);
+
+
+/*- injected dox -*/
+/**
+  * @brief This function handles EXTI interrupt request.
+  * @param GPIO_Pin: Specifies the pins connected EXTI line
+  * @retval None
+  */
+void HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);
 void          HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 /**
   * @}

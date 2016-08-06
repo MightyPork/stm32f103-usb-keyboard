@@ -272,11 +272,81 @@
   */
 
 /* Initialization and de-initialization functions  ******************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief This function configures the Flash prefetch, 
+  *        Configures time base source, NVIC and Low level hardware
+  * @note This function is called at the beginning of program after reset and before 
+  *       the clock configuration
+  * @note The time base configuration is based on MSI clock when exiting from Reset.
+  *       Once done, time base tick start incrementing.
+  *        In the default implementation,Systick is used as source of time base.
+  *       The tick variable is incremented each 1ms in its ISR.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_Init(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief This function de-Initializes common part of the HAL and stops the source
+  *        of time base.
+  * @note This function is optional.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_DeInit(void);
-void              HAL_MspInit(void);
-void              HAL_MspDeInit(void);
-HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Initializes the MSP.
+  * @retval None
+  */
+__weak void HAL_MspInit(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  DeInitializes the MSP.
+  * @retval None
+  */
+__weak void HAL_MspDeInit(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief This function configures the Flash prefetch, 
+  *        Configures time base source, NVIC and Low level hardware
+  * @note This function is called at the beginning of program after reset and before 
+  *       the clock configuration
+  * @note The time base configuration is based on MSI clock when exiting from Reset.
+  *       Once done, time base tick start incrementing.
+  *        In the default implementation,Systick is used as source of time base.
+  *       The tick variable is incremented each 1ms in its ISR.
+  * @retval HAL status
+  */
+
+
+/*- injected dox -*/
+/**
+  * @brief This function configures the source of the time base. 
+  *        The time source is configured  to have 1ms time base with a dedicated 
+  *        Tick interrupt priority.
+  * @note This function is called  automatically at the beginning of program after
+  *       reset by HAL_Init() or at any time when clock is reconfigured  by HAL_RCC_ClockConfig(). 
+  * @note In the default implementation, SysTick timer is the source of time base. 
+  *       It is used to generate interrupts at regular time intervals. 
+  *       Care must be taken if HAL_Delay() is called from a peripheral ISR process, 
+  *       The the SysTick interrupt must have higher priority (numerically lower) 
+  *       than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
+  *       The function is declared as __Weak  to be overwritten  in case of other
+  *       implementation  in user file.
+  * @param TickPriority: Tick interrupt priority.
+  * @retval HAL status
+  */
+__weak HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority);
 
 /**
   * @}
@@ -287,20 +357,207 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority);
   */
 
 /* Peripheral Control functions  ************************************************/
-void              HAL_IncTick(void);
-void              HAL_Delay(__IO uint32_t Delay);
-uint32_t          HAL_GetTick(void);
-void              HAL_SuspendTick(void);
-void              HAL_ResumeTick(void);
-uint32_t          HAL_GetHalVersion(void);
-uint32_t          HAL_GetREVID(void);
-uint32_t          HAL_GetDEVID(void);
-void              HAL_DBGMCU_EnableDBGSleepMode(void);
-void              HAL_DBGMCU_DisableDBGSleepMode(void);
-void              HAL_DBGMCU_EnableDBGStopMode(void);
-void              HAL_DBGMCU_DisableDBGStopMode(void);
-void              HAL_DBGMCU_EnableDBGStandbyMode(void);
-void              HAL_DBGMCU_DisableDBGStandbyMode(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief This function is called to increment  a global variable "uwTick"
+  *        used as application time base.
+  * @note In the default implementation, this variable is incremented each 1ms
+  *       in Systick ISR.
+  * @note This function is declared as __weak to be overwritten in case of other 
+  *      implementations in user file.
+  * @retval None
+  */
+__weak void HAL_IncTick(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief This function provides accurate delay (in milliseconds) based 
+  *        on variable incremented.
+  * @note In the default implementation , SysTick timer is the source of time base.
+  *       It is used to generate interrupts at regular time intervals where uwTick
+  *       is incremented.
+  * @note ThiS function is declared as __weak to be overwritten in case of other
+  *       implementations in user file.
+  * @param Delay: specifies the delay time length, in milliseconds.
+  * @retval None
+  */
+__weak void HAL_Delay(__IO uint32_t Delay);
+
+
+/*- injected dox -*/
+/**
+  * @brief Provides a tick value in millisecond.
+  * @note   This function is declared as __weak  to be overwritten  in case of other 
+  *       implementations in user file.
+  * @retval tick value
+  */
+__weak uint32_t HAL_GetTick(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief Suspend Tick increment.
+  * @note In the default implementation , SysTick timer is the source of time base. It is
+  *       used to generate interrupts at regular time intervals. Once HAL_SuspendTick()
+  *       is called, the the SysTick interrupt will be disabled and so Tick increment 
+  *       is suspended.
+  * @note This function is declared as __weak to be overwritten in case of other
+  *       implementations in user file.
+  * @retval None
+  */
+__weak void HAL_SuspendTick(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief Resume Tick increment.
+  * @note In the default implementation , SysTick timer is the source of time base. It is
+  *       used to generate interrupts at regular time intervals. Once HAL_ResumeTick()
+  *       is called, the the SysTick interrupt will be enabled and so Tick increment 
+  *       is resumed.
+  * @note This function is declared as __weak  to be overwritten  in case of other
+  *       implementations in user file.
+  * @retval None
+  */
+__weak void HAL_ResumeTick(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  This method returns the HAL revision
+  * @retval version: 0xXYZR (8bits for each decimal, R for RC)
+  */
+uint32_t HAL_GetHalVersion(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief Returns the device revision identifier.
+  * Note: On devices STM32F10xx8 and STM32F10xxB,
+  *                  STM32F101xC/D/E and STM32F103xC/D/E,
+  *                  STM32F101xF/G and STM32F103xF/G
+  *                  STM32F10xx4 and STM32F10xx6
+  *       Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in 
+  *       debug mode (not accessible by the user software in normal mode).
+  *       Refer to errata sheet of these devices for more details.
+  * @retval Device revision identifier
+  */
+uint32_t HAL_GetREVID(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns the device identifier.
+  * Note: On devices STM32F10xx8 and STM32F10xxB,
+  *                  STM32F101xC/D/E and STM32F103xC/D/E,
+  *                  STM32F101xF/G and STM32F103xF/G
+  *                  STM32F10xx4 and STM32F10xx6
+  *       Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in 
+  *       debug mode (not accessible by the user software in normal mode).
+  *       Refer to errata sheet of these devices for more details.
+  * @retval Device identifier
+  */
+uint32_t HAL_GetDEVID(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Enable the Debug Module during SLEEP mode
+  * @retval None
+  */
+void HAL_DBGMCU_EnableDBGSleepMode(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Disable the Debug Module during SLEEP mode
+  * Note: On devices STM32F10xx8 and STM32F10xxB,
+  *                  STM32F101xC/D/E and STM32F103xC/D/E,
+  *                  STM32F101xF/G and STM32F103xF/G
+  *                  STM32F10xx4 and STM32F10xx6
+  *       Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in 
+  *       debug mode (not accessible by the user software in normal mode).
+  *       Refer to errata sheet of these devices for more details.
+  * @retval None
+  */
+void HAL_DBGMCU_DisableDBGSleepMode(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Enable the Debug Module during STOP mode
+  * Note: On devices STM32F10xx8 and STM32F10xxB,
+  *                  STM32F101xC/D/E and STM32F103xC/D/E,
+  *                  STM32F101xF/G and STM32F103xF/G
+  *                  STM32F10xx4 and STM32F10xx6
+  *       Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in 
+  *       debug mode (not accessible by the user software in normal mode).
+  *       Refer to errata sheet of these devices for more details.
+  * Note: On all STM32F1 devices:
+  *       If the system tick timer interrupt is enabled during the Stop mode 
+  *       debug (DBG_STOP bit set in the DBGMCU_CR register ), it will wakeup
+  *       the system from Stop mode.
+  *       Workaround: To debug the Stop mode, disable the system tick timer 
+  *       interrupt.
+  *       Refer to errata sheet of these devices for more details.
+  * Note: On all STM32F1 devices:
+  *       If the system tick timer interrupt is enabled during the Stop mode  
+  *       debug (DBG_STOP bit set in the DBGMCU_CR register ), it will wakeup
+  *       the system from Stop mode.
+  *       Workaround: To debug the Stop mode, disable the system tick timer
+  *       interrupt.
+  *       Refer to errata sheet of these devices for more details.
+  * @retval None
+  */
+void HAL_DBGMCU_EnableDBGStopMode(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Disable the Debug Module during STOP mode
+  * Note: On devices STM32F10xx8 and STM32F10xxB,
+  *                  STM32F101xC/D/E and STM32F103xC/D/E,
+  *                  STM32F101xF/G and STM32F103xF/G
+  *                  STM32F10xx4 and STM32F10xx6
+  *       Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in 
+  *       debug mode (not accessible by the user software in normal mode).
+  *       Refer to errata sheet of these devices for more details.
+  * @retval None
+  */
+void HAL_DBGMCU_DisableDBGStopMode(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Enable the Debug Module during STANDBY mode
+  * Note: On devices STM32F10xx8 and STM32F10xxB,
+  *                  STM32F101xC/D/E and STM32F103xC/D/E,
+  *                  STM32F101xF/G and STM32F103xF/G
+  *                  STM32F10xx4 and STM32F10xx6
+  *       Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in 
+  *       debug mode (not accessible by the user software in normal mode).
+  *       Refer to errata sheet of these devices for more details.
+  * @retval None
+  */
+void HAL_DBGMCU_EnableDBGStandbyMode(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Disable the Debug Module during STANDBY mode
+  * Note: On devices STM32F10xx8 and STM32F10xxB,
+  *                  STM32F101xC/D/E and STM32F103xC/D/E,
+  *                  STM32F101xF/G and STM32F103xF/G
+  *                  STM32F10xx4 and STM32F10xx6
+  *       Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in 
+  *       debug mode (not accessible by the user software in normal mode).
+  *       Refer to errata sheet of these devices for more details.
+  * @retval None
+  */
+void HAL_DBGMCU_DisableDBGStandbyMode(void);
 
 /**
   * @}

@@ -1340,8 +1340,68 @@ typedef struct
   */
 
 /* Initialization and de-initialization functions  ******************************/
-void              HAL_RCC_DeInit(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Resets the RCC clock configuration to the default reset state.
+  * @note   The default reset state of the clock configuration is given below:
+  *            - HSI ON and used as system clock source
+  *            - HSE and PLL OFF
+  *            - AHB, APB1 and APB2 prescaler set to 1.
+  *            - CSS and MCO1 OFF
+  *            - All interrupts disabled
+  * @note   This function does not modify the configuration of the
+  *            - Peripheral clocks
+  *            - LSI, LSE and RTC clocks
+  * @retval None
+  */
+void HAL_RCC_DeInit(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Initializes the RCC Oscillators according to the specified parameters in the
+  *         RCC_OscInitTypeDef.
+  * @param  RCC_OscInitStruct pointer to an RCC_OscInitTypeDef structure that
+  *         contains the configuration information for the RCC Oscillators.
+  * @note   The PLL is not disabled when used as system clock.
+  * @note   The PLL is not disabled when USB OTG FS clock is enabled (specific to devices with USB FS)
+  * @note   Transitions LSE Bypass to LSE On and LSE On to LSE Bypass are not
+  *         supported by this macro. User should request a transition to LSE Off
+  *         first and then LSE On or LSE Bypass.
+  * @note   Transition HSE Bypass to HSE On and HSE On to HSE Bypass are not
+  *         supported by this macro. User should request a transition to HSE Off
+  *         first and then HSE On or HSE Bypass.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Initializes the CPU, AHB and APB buses clocks according to the specified 
+  *         parameters in the RCC_ClkInitStruct.
+  * @param  RCC_ClkInitStruct pointer to an RCC_OscInitTypeDef structure that
+  *         contains the configuration information for the RCC peripheral.
+  * @param  FLatency FLASH Latency                   
+  *          The value of this parameter depend on device used within the same series
+  * @note   The SystemCoreClock CMSIS variable is used to store System Clock Frequency 
+  *         and updated by @ref HAL_RCC_GetHCLKFreq() function called within this function
+  *
+  * @note   The HSI is used (enabled by hardware) as system clock source after
+  *         start-up from Reset, wake-up from STOP and STANDBY mode, or in case
+  *         of failure of the HSE used directly or indirectly as system clock
+  *         (if the Clock Security System CSS is enabled).
+  *           
+  * @note   A switch from one clock source to another occurs only if the target
+  *         clock source is ready (clock stable after start-up delay or PLL locked). 
+  *         If a clock source which is not yet ready is selected, the switch will
+  *         occur when the clock source will be ready. 
+  *         You can use @ref HAL_RCC_GetClockConfig() function to know which clock is
+  *         currently used as system clock source.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency);
 
 /**
@@ -1353,18 +1413,162 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   */
 
 /* Peripheral Control functions  ************************************************/
-void              HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_MCODiv);
-void              HAL_RCC_EnableCSS(void);
-void              HAL_RCC_DisableCSS(void);
-uint32_t          HAL_RCC_GetSysClockFreq(void);
-uint32_t          HAL_RCC_GetHCLKFreq(void);
-uint32_t          HAL_RCC_GetPCLK1Freq(void);
-uint32_t          HAL_RCC_GetPCLK2Freq(void);
-void              HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct);
-void              HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t *pFLatency);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Selects the clock source to output on MCO pin.
+  * @note   MCO pin should be configured in alternate function mode.
+  * @param  RCC_MCOx specifies the output direction for the clock source.
+  *          This parameter can be one of the following values:
+  *            @arg @ref RCC_MCO1 Clock source to output on MCO1 pin(PA8).
+  * @param  RCC_MCOSource specifies the clock source to output.
+  *          This parameter can be one of the following values:
+  *            @arg @ref RCC_MCO1SOURCE_NOCLOCK     No clock selected as MCO clock
+  *            @arg @ref RCC_MCO1SOURCE_SYSCLK      System clock selected as MCO clock
+  *            @arg @ref RCC_MCO1SOURCE_HSI         HSI selected as MCO clock
+  *            @arg @ref RCC_MCO1SOURCE_HSE         HSE selected as MCO clock
+  @if STM32F105xC
+  *            @arg @ref RCC_MCO1SOURCE_PLLCLK       PLL clock divided by 2 selected as MCO source
+  *            @arg @ref RCC_MCO1SOURCE_PLL2CLK      PLL2 clock selected as MCO source
+  *            @arg @ref RCC_MCO1SOURCE_PLL3CLK_DIV2 PLL3 clock divided by 2 selected as MCO source
+  *            @arg @ref RCC_MCO1SOURCE_EXT_HSE      XT1 external 3-25 MHz oscillator clock selected as MCO source
+  *            @arg @ref RCC_MCO1SOURCE_PLL3CLK      PLL3 clock selected as MCO source
+  @endif
+  @if STM32F107xC
+  *            @arg @ref RCC_MCO1SOURCE_PLLCLK       PLL clock divided by 2 selected as MCO source
+  *            @arg @ref RCC_MCO1SOURCE_PLL2CLK      PLL2 clock selected as MCO source
+  *            @arg @ref RCC_MCO1SOURCE_PLL3CLK_DIV2 PLL3 clock divided by 2 selected as MCO source
+  *            @arg @ref RCC_MCO1SOURCE_EXT_HSE XT1  external 3-25 MHz oscillator clock selected as MCO source
+  *            @arg @ref RCC_MCO1SOURCE_PLL3CLK      PLL3 clock selected as MCO source
+  @endif
+  * @param  RCC_MCODiv specifies the MCO DIV.
+  *          This parameter can be one of the following values:
+  *            @arg @ref RCC_MCODIV_1 no division applied to MCO clock
+  * @retval None
+  */
+void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_MCODiv);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Enables the Clock Security System.
+  * @note   If a failure is detected on the HSE oscillator clock, this oscillator
+  *         is automatically disabled and an interrupt is generated to inform the
+  *         software about the failure (Clock Security System Interrupt, CSSI),
+  *         allowing the MCU to perform rescue operations. The CSSI is linked to 
+  *         the Cortex-M3 NMI (Non-Maskable Interrupt) exception vector.  
+  * @retval None
+  */
+void HAL_RCC_EnableCSS(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Disables the Clock Security System.
+  * @retval None
+  */
+void HAL_RCC_DisableCSS(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns the SYSCLK frequency     
+  * @note   The system frequency computed by this function is not the real 
+  *         frequency in the chip. It is calculated based on the predefined 
+  *         constant and the selected clock source:
+  * @note     If SYSCLK source is HSI, function returns values based on HSI_VALUE(*)
+  * @note     If SYSCLK source is HSE, function returns a value based on HSE_VALUE
+  *           divided by PREDIV factor(**)
+  * @note     If SYSCLK source is PLL, function returns a value based on HSE_VALUE
+  *           divided by PREDIV factor(**) or HSI_VALUE(*) multiplied by the PLL factor.
+  * @note     (*) HSI_VALUE is a constant defined in stm32f1xx_hal_conf.h file (default value
+  *               8 MHz) but the real value may vary depending on the variations
+  *               in voltage and temperature.
+  * @note     (**) HSE_VALUE is a constant defined in stm32f1xx_hal_conf.h file (default value
+  *                8 MHz), user has to ensure that HSE_VALUE is same as the real
+  *                frequency of the crystal used. Otherwise, this function may
+  *                have wrong result.
+  *                  
+  * @note   The result of this function could be not correct when using fractional
+  *         value for HSE crystal.
+  *           
+  * @note   This function can be used by the user application to compute the 
+  *         baud-rate for the communication peripherals or configure other parameters.
+  *           
+  * @note   Each time SYSCLK changes, this function must be called to update the
+  *         right SYSCLK value. Otherwise, any configuration based on this function will be incorrect.
+  *         
+  * @retval SYSCLK frequency
+  */
+uint32_t HAL_RCC_GetSysClockFreq(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns the HCLK frequency     
+  * @note   Each time HCLK changes, this function must be called to update the
+  *         right HCLK value. Otherwise, any configuration based on this function will be incorrect.
+  * 
+  * @note   The SystemCoreClock CMSIS variable is used to store System Clock Frequency 
+  *         and updated within this function
+  * @retval HCLK frequency
+  */
+uint32_t HAL_RCC_GetHCLKFreq(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns the PCLK1 frequency     
+  * @note   Each time PCLK1 changes, this function must be called to update the
+  *         right PCLK1 value. Otherwise, any configuration based on this function will be incorrect.
+  * @retval PCLK1 frequency
+  */
+uint32_t HAL_RCC_GetPCLK1Freq(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns the PCLK2 frequency     
+  * @note   Each time PCLK2 changes, this function must be called to update the
+  *         right PCLK2 value. Otherwise, any configuration based on this function will be incorrect.
+  * @retval PCLK2 frequency
+  */
+uint32_t HAL_RCC_GetPCLK2Freq(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Configures the RCC_OscInitStruct according to the internal 
+  * RCC configuration registers.
+  * @param  RCC_OscInitStruct pointer to an RCC_OscInitTypeDef structure that 
+  * will be configured.
+  * @retval None
+  */
+void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Get the RCC_ClkInitStruct according to the internal 
+  * RCC configuration registers.
+  * @param  RCC_ClkInitStruct pointer to an RCC_ClkInitTypeDef structure that 
+  * contains the current clock configuration.
+  * @param  pFLatency Pointer on the Flash Latency.
+  * @retval None
+  */
+void HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t *pFLatency);
 
 /* CSS NMI IRQ handler */
-void              HAL_RCC_NMI_IRQHandler(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief This function handles the RCC CSS interrupt request.
+  * @note This API should be called under the NMI_Handler().
+  * @retval None
+  */
+void HAL_RCC_NMI_IRQHandler(void);
 
 /* User Callbacks in non blocking mode (IT mode) */
 void              HAL_RCC_CSSCallback(void);

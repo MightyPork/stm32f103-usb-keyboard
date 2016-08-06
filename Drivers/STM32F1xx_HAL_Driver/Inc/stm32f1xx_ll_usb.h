@@ -500,36 +500,258 @@ typedef struct
   * @{
   */
 #if defined (USB_OTG_FS)
+
+
+/*- injected dox -*/
+/**
+  * @brief  Initializes the USB Core
+  * @param  USBx: USB Instance
+  * @param  cfg : pointer to a USB_CfgTypeDef structure that contains
+  *         the configuration information for the specified USBx peripheral.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_CoreInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef Init);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DevInit : Initializes the USB controller registers 
+  *         for device mode
+  * @param  USBx : Selected device
+  * @param  cfg  : pointer to a USB_CfgTypeDef structure that contains
+  *         the configuration information for the specified USBx peripheral.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_DevInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef Init);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_EnableGlobalInt
+  *         Enables the controller's Global Int in the AHB Config reg
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_EnableGlobalInt(USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DisableGlobalInt
+  *         Disable the controller's Global Int in the AHB Config reg
+  * @param  USBx : Selected device
+  * @retval HAL status
+*/
 HAL_StatusTypeDef USB_DisableGlobalInt(USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_SetCurrentMode : Set functional mode
+  * @param  USBx : Selected device
+  * @param  mode :  current core mode
+  *          This parameter can be one of the these values:
+  *            @arg USB_DEVICE_MODE: Peripheral mode mode
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_SetCurrentMode(USB_OTG_GlobalTypeDef *USBx , USB_ModeTypeDef mode);
 HAL_StatusTypeDef USB_SetDevSpeed(USB_OTG_GlobalTypeDef *USBx , uint8_t speed);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_FlushRxFifo : Flush Rx FIFO
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_FlushRxFifo (USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_FlushTxFifo : Flush a Tx FIFO
+  * @param  USBx : Selected device
+  * @param  num : FIFO number
+  *         This parameter can be a value from 1 to 15
+            15 means Flush all Tx FIFOs
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_FlushTxFifo (USB_OTG_GlobalTypeDef *USBx, uint32_t num );
+
+
+/*- injected dox -*/
+/**
+  * @brief  Activate and configure an endpoint
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_ActivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  De-activate and de-initialize an endpoint
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_DeactivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_EPStartXfer : setup and starts a transfer over an EP
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EP0StartXfer(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_WritePacket : Writes a packet into the Tx FIFO associated 
+  *         with the EP/channel
+  * @param  USBx : Selected device
+  * @param  src :  pointer to source buffer
+  * @param  ch_ep_num : endpoint or host channel number
+  * @param  len : Number of bytes to write
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src, uint8_t ch_ep_num, uint16_t len);
 void *            USB_ReadPacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_EPSetStall : set a stall condition over an EP
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure   
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_EPSetStall(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_EPClearStall : Clear a stall condition over an EP
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_EPClearStall(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep);
-HAL_StatusTypeDef USB_SetDevAddress (USB_OTG_GlobalTypeDef *USBx, uint8_t address);
-HAL_StatusTypeDef USB_DevConnect (USB_OTG_GlobalTypeDef *USBx);
-HAL_StatusTypeDef USB_DevDisconnect (USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_SetDevAddress : Stop the usb device mode
+  * @param  USBx : Selected device
+  * @param  address : new device address to be assigned
+  *          This parameter can be a value from 0 to 255
+  * @retval HAL status
+  */
+HAL_StatusTypeDef  USB_SetDevAddress (USB_OTG_GlobalTypeDef *USBx, uint8_t address);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DevConnect : Connect the USB device by enabling the pull-up/pull-down
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+HAL_StatusTypeDef  USB_DevConnect (USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DevDisconnect : Disconnect the USB device by disabling the pull-up/pull-down
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+HAL_StatusTypeDef  USB_DevDisconnect (USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_StopDevice : Stop the usb device mode
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_StopDevice(USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_ActivateSetup (USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Prepare the EP0 to start the first control setup
+  * @param  USBx : Selected device
+  * @param  psetup : pointer to setup packet
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_EP0_OutStart(USB_OTG_GlobalTypeDef *USBx, uint8_t *psetup);
 uint8_t           USB_GetDevSpeed(USB_OTG_GlobalTypeDef *USBx);
 uint32_t          USB_GetMode(USB_OTG_GlobalTypeDef *USBx);
-uint32_t          USB_ReadInterrupts (USB_OTG_GlobalTypeDef *USBx);
-uint32_t          USB_ReadDevAllOutEpInterrupt (USB_OTG_GlobalTypeDef *USBx);
-uint32_t          USB_ReadDevOutEPInterrupt (USB_OTG_GlobalTypeDef *USBx , uint8_t epnum);
-uint32_t          USB_ReadDevAllInEpInterrupt (USB_OTG_GlobalTypeDef *USBx);
-uint32_t          USB_ReadDevInEPInterrupt (USB_OTG_GlobalTypeDef *USBx , uint8_t epnum);
-void              USB_ClearInterrupts (USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ReadInterrupts: return the global USB interrupt status
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+uint32_t  USB_ReadInterrupts (USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ReadDevAllOutEpInterrupt: return the USB device OUT endpoints interrupt status
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+uint32_t USB_ReadDevAllOutEpInterrupt (USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns Device OUT EP Interrupt register
+  * @param  USBx : Selected device
+  * @param  epnum : endpoint number
+  *          This parameter can be a value from 0 to 15
+  * @retval Device OUT EP Interrupt register
+  */
+uint32_t USB_ReadDevOutEPInterrupt (USB_OTG_GlobalTypeDef *USBx , uint8_t epnum);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ReadDevAllInEpInterrupt: return the USB device IN endpoints interrupt status
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+uint32_t USB_ReadDevAllInEpInterrupt (USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns Device IN EP Interrupt register
+  * @param  USBx : Selected device
+  * @param  epnum : endpoint number
+  *          This parameter can be a value from 0 to 15
+  * @retval Device IN EP Interrupt register
+  */
+uint32_t USB_ReadDevInEPInterrupt (USB_OTG_GlobalTypeDef *USBx , uint8_t epnum);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ClearInterrupts: clear a USB interrupt
+  * @param  USBx : Selected device
+  * @param  interrupt : interrupt flag
+  * @retval None
+  */
+void  USB_ClearInterrupts (USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt);
 
 HAL_StatusTypeDef USB_HostInit (USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cfg);
 HAL_StatusTypeDef USB_InitFSLSPClkSel(USB_OTG_GlobalTypeDef *USBx , uint8_t freq);
@@ -549,41 +771,317 @@ uint32_t          USB_HC_ReadInterrupt (USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_HC_Halt(USB_OTG_GlobalTypeDef *USBx , uint8_t hc_num);
 HAL_StatusTypeDef USB_DoPing(USB_OTG_GlobalTypeDef *USBx , uint8_t ch_num);
 HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ActivateRemoteWakeup : active remote wakeup signalling
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_ActivateRemoteWakeup(USB_OTG_GlobalTypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DeActivateRemoteWakeup : de-active remote wakeup signalling
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_OTG_GlobalTypeDef *USBx);
 #endif /* USB_OTG_FS */
 
 #if defined (USB)
+
+
+/*- injected dox -*/
+/**
+  * @brief  Initializes the USB Core
+  * @param  USBx: USB Instance
+  * @param  cfg : pointer to a USB_CfgTypeDef structure that contains
+  *         the configuration information for the specified USBx peripheral.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_CoreInit(USB_TypeDef *USBx, USB_CfgTypeDef Init);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DevInit : Initializes the USB controller registers 
+  *         for device mode
+  * @param  USBx : Selected device
+  * @param  cfg  : pointer to a USB_CfgTypeDef structure that contains
+  *         the configuration information for the specified USBx peripheral.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_DevInit(USB_TypeDef *USBx, USB_CfgTypeDef Init);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_EnableGlobalInt
+  *         Enables the controller's Global Int in the AHB Config reg
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_EnableGlobalInt(USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DisableGlobalInt
+  *         Disable the controller's Global Int in the AHB Config reg
+  * @param  USBx : Selected device
+  * @retval HAL status
+*/
 HAL_StatusTypeDef USB_DisableGlobalInt(USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_SetCurrentMode : Set functional mode
+  * @param  USBx : Selected device
+  * @param  mode :  current core mode
+  *          This parameter can be one of the these values:
+  *            @arg USB_DEVICE_MODE: Peripheral mode mode
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_SetCurrentMode(USB_TypeDef *USBx , USB_ModeTypeDef mode);
 HAL_StatusTypeDef USB_SetDevSpeed(USB_TypeDef *USBx , uint8_t speed);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_FlushRxFifo : Flush Rx FIFO
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_FlushRxFifo (USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_FlushTxFifo : Flush a Tx FIFO
+  * @param  USBx : Selected device
+  * @param  num : FIFO number
+  *         This parameter can be a value from 1 to 15
+            15 means Flush all Tx FIFOs
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_FlushTxFifo (USB_TypeDef *USBx, uint32_t num );
+
+
+/*- injected dox -*/
+/**
+  * @brief  Activate and configure an endpoint
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_ActivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  De-activate and de-initialize an endpoint
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_EPStartXfer : setup and starts a transfer over an EP
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx , USB_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_WritePacket : Writes a packet into the Tx FIFO associated 
+  *         with the EP/channel
+  * @param  USBx : Selected device
+  * @param  src :  pointer to source buffer
+  * @param  ch_ep_num : endpoint or host channel number
+  * @param  len : Number of bytes to write
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_WritePacket(USB_TypeDef *USBx, uint8_t *src, uint8_t ch_ep_num, uint16_t len);
 void *            USB_ReadPacket(USB_TypeDef *USBx, uint8_t *dest, uint16_t len);
-HAL_StatusTypeDef USB_EPSetStall(USB_TypeDef *USBx , USB_EPTypeDef *ep);
-HAL_StatusTypeDef USB_EPClearStall(USB_TypeDef *USBx , USB_EPTypeDef *ep);
-HAL_StatusTypeDef USB_SetDevAddress (USB_TypeDef *USBx, uint8_t address);
-HAL_StatusTypeDef USB_DevConnect (USB_TypeDef *USBx);
-HAL_StatusTypeDef USB_DevDisconnect (USB_TypeDef *USBx);
-HAL_StatusTypeDef USB_StopDevice(USB_TypeDef *USBx);
-HAL_StatusTypeDef USB_EP0_OutStart(USB_TypeDef *USBx, uint8_t *psetup);
-uint32_t          USB_ReadInterrupts (USB_TypeDef *USBx);
-uint32_t          USB_ReadDevAllOutEpInterrupt (USB_TypeDef *USBx);
-uint32_t          USB_ReadDevOutEPInterrupt (USB_TypeDef *USBx , uint8_t epnum);
-uint32_t          USB_ReadDevAllInEpInterrupt (USB_TypeDef *USBx);
-uint32_t          USB_ReadDevInEPInterrupt (USB_TypeDef *USBx , uint8_t epnum);
-void              USB_ClearInterrupts (USB_TypeDef *USBx, uint32_t interrupt);
 
+
+/*- injected dox -*/
+/**
+  * @brief  USB_EPSetStall : set a stall condition over an EP
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure   
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_EPSetStall(USB_TypeDef *USBx , USB_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_EPClearStall : Clear a stall condition over an EP
+  * @param  USBx : Selected device
+  * @param  ep: pointer to endpoint structure
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_EPClearStall(USB_TypeDef *USBx , USB_EPTypeDef *ep);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_SetDevAddress : Stop the usb device mode
+  * @param  USBx : Selected device
+  * @param  address : new device address to be assigned
+  *          This parameter can be a value from 0 to 255
+  * @retval HAL status
+  */
+HAL_StatusTypeDef  USB_SetDevAddress (USB_TypeDef *USBx, uint8_t address);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DevConnect : Connect the USB device by enabling the pull-up/pull-down
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+HAL_StatusTypeDef  USB_DevConnect (USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DevDisconnect : Disconnect the USB device by disabling the pull-up/pull-down
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+HAL_StatusTypeDef  USB_DevDisconnect (USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_StopDevice : Stop the usb device mode
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_StopDevice(USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Prepare the EP0 to start the first control setup
+  * @param  USBx : Selected device
+  * @param  psetup : pointer to setup packet
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_EP0_OutStart(USB_TypeDef *USBx, uint8_t *psetup);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ReadInterrupts: return the global USB interrupt status
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+uint32_t  USB_ReadInterrupts (USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ReadDevAllOutEpInterrupt: return the USB device OUT endpoints interrupt status
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+uint32_t USB_ReadDevAllOutEpInterrupt (USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns Device OUT EP Interrupt register
+  * @param  USBx : Selected device
+  * @param  epnum : endpoint number
+  *          This parameter can be a value from 0 to 15
+  * @retval Device OUT EP Interrupt register
+  */
+uint32_t USB_ReadDevOutEPInterrupt (USB_TypeDef *USBx , uint8_t epnum);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ReadDevAllInEpInterrupt: return the USB device IN endpoints interrupt status
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+uint32_t USB_ReadDevAllInEpInterrupt (USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns Device IN EP Interrupt register
+  * @param  USBx : Selected device
+  * @param  epnum : endpoint number
+  *          This parameter can be a value from 0 to 15
+  * @retval Device IN EP Interrupt register
+  */
+uint32_t USB_ReadDevInEPInterrupt (USB_TypeDef *USBx , uint8_t epnum);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ClearInterrupts: clear a USB interrupt
+  * @param  USBx : Selected device
+  * @param  interrupt : interrupt flag
+  * @retval None
+  */
+void  USB_ClearInterrupts (USB_TypeDef *USBx, uint32_t interrupt);
+
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_ActivateRemoteWakeup : active remote wakeup signalling
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_ActivateRemoteWakeup(USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  USB_DeActivateRemoteWakeup : de-active remote wakeup signalling
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
 HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_TypeDef *USBx);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Copy a buffer from user memory area to packet memory area (PMA)
+  * @param  USBx : pointer to USB register.
+  * @param  pbUsrBuf : pointer to user memory area.
+  * @param  wPMABufAddr : address into PMA.
+  * @param  wNBytes : number of bytes to be copied.
+  * @retval None
+  */
 void USB_WritePMA(USB_TypeDef  *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Copy a buffer from user memory area to packet memory area (PMA)
+  * @param  USBx : pointer to USB register.
+* @param  pbUsrBuf : pointer to user memory area.
+  * @param  wPMABufAddr : address into PMA.
+  * @param  wNBytes : number of bytes to be copied.
+  * @retval None
+  */
 void USB_ReadPMA(USB_TypeDef  *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes);
 #endif /* USB */
 /**

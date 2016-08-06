@@ -275,11 +275,78 @@ typedef struct
   * @{
   */
 /* IO operation functions *****************************************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Program halfword, word or double word at a specified address
+  * @note   The function HAL_FLASH_Unlock() should be called before to unlock the FLASH interface
+  *         The function HAL_FLASH_Lock() should be called after to lock the FLASH interface
+  *
+  * @note   If an erase and a program operations are requested simultaneously,    
+  *         the erase operation is performed before the program one.
+  *  
+  * @note   FLASH should be previously erased before new programmation (only exception to this 
+  *         is when 0x0000 is programmed)
+  *
+  * @param  TypeProgram:  Indicate the way to program at a specified address.
+  *                       This parameter can be a value of @ref FLASH_Type_Program
+  * @param  Address:      Specifies the address to be programmed.
+  * @param  Data:         Specifies the data to be programmed
+  * 
+  * @retval HAL_StatusTypeDef HAL Status
+  */
 HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint64_t Data);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Program halfword, word or double word at a specified address
+  * @note   The function HAL_FLASH_Unlock() should be called before to unlock the FLASH interface
+  *         The function HAL_FLASH_Lock() should be called after to lock the FLASH interface
+  *
+  * @note   If an erase and a program operations are requested simultaneously,    
+  *         the erase operation is performed before the program one.
+  *  
+  * @note   FLASH should be previously erased before new programmation (only exception to this 
+  *         is when 0x0000 is programmed)
+  *
+  * @param  TypeProgram:  Indicate the way to program at a specified address.
+  *                       This parameter can be a value of @ref FLASH_Type_Program
+  * @param  Address:      Specifies the address to be programmed.
+  * @param  Data:         Specifies the data to be programmed
+  * 
+  * @retval HAL_StatusTypeDef HAL Status
+  */
+
+
+/*- injected dox -*/
+/**
+  * @brief  Program halfword, word or double word at a specified address  with interrupt enabled.
+  * @note   The function HAL_FLASH_Unlock() should be called before to unlock the FLASH interface
+  *         The function HAL_FLASH_Lock() should be called after to lock the FLASH interface
+  *
+  * @note   If an erase and a program operations are requested simultaneously,    
+  *         the erase operation is performed before the program one.
+  *
+  * @param  TypeProgram: Indicate the way to program at a specified address.
+  *                      This parameter can be a value of @ref FLASH_Type_Program
+  * @param  Address:     Specifies the address to be programmed.
+  * @param  Data:        Specifies the data to be programmed
+  * 
+  * @retval HAL_StatusTypeDef HAL Status
+  */
 HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, uint64_t Data);
 
 /* FLASH IRQ handler function */
-void       HAL_FLASH_IRQHandler(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief This function handles FLASH interrupt request.
+  * @retval None
+  */
+void HAL_FLASH_IRQHandler(void);
 /* Callbacks in non blocking modes */ 
 void       HAL_FLASH_EndOfOperationCallback(uint32_t ReturnValue);
 void       HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue);
@@ -292,10 +359,46 @@ void       HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue);
   * @{
   */
 /* Peripheral Control functions ***********************************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Unlock the FLASH control register access
+  * @retval HAL Status
+  */
 HAL_StatusTypeDef HAL_FLASH_Unlock(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Locks the FLASH control register access
+  * @retval HAL Status
+  */
 HAL_StatusTypeDef HAL_FLASH_Lock(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Unlock the FLASH Option Control Registers access.
+  * @retval HAL Status
+  */
 HAL_StatusTypeDef HAL_FLASH_OB_Unlock(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Lock the FLASH Option Control Registers access.
+  * @retval HAL Status 
+  */
 HAL_StatusTypeDef HAL_FLASH_OB_Lock(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Launch the option byte loading.
+  * @note   This function will reset automatically the MCU.
+  * @retval HAL_StatusTypeDef HAL Status
+  */
 HAL_StatusTypeDef HAL_FLASH_OB_Launch(void);
 
 /**
@@ -306,6 +409,14 @@ HAL_StatusTypeDef HAL_FLASH_OB_Launch(void);
   * @{
   */
 /* Peripheral State and Error functions ***************************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Get the specific FLASH error flag.
+  * @retval FLASH_ErrorCode: The returned value can be:
+  *            @ref FLASH_Error_Codes
+  */
 uint32_t HAL_FLASH_GetError(void);
 
 /**
@@ -321,9 +432,33 @@ uint32_t HAL_FLASH_GetError(void);
  * @{
  */
 void                    FLASH_PageErase(uint32_t PageAddress);
-HAL_StatusTypeDef       FLASH_WaitForLastOperation(uint32_t Timeout);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Wait for a FLASH operation to complete.
+  * @param  Timeout: maximum flash operation timeout
+  * @retval HAL_StatusTypeDef HAL Status
+  */
+HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout);
 #if defined(FLASH_BANK2_END)
-HAL_StatusTypeDef       FLASH_WaitForLastOperationBank2(uint32_t Timeout);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Wait for a FLASH operation to complete.
+  * @param  Timeout: maximum flash operation timeout
+  * @retval HAL_StatusTypeDef HAL Status
+  */
+
+
+/*- injected dox -*/
+/**
+  * @brief  Wait for a FLASH BANK2 operation to complete.
+  * @param  Timeout: maximum flash operation timeout
+  * @retval HAL_StatusTypeDef HAL Status
+  */
+HAL_StatusTypeDef FLASH_WaitForLastOperationBank2(uint32_t Timeout);
 #endif /* FLASH_BANK2_END */
 
 /**

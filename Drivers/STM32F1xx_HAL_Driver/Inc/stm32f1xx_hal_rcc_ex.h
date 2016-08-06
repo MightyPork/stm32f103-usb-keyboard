@@ -1874,9 +1874,88 @@ typedef struct
   * @{
   */
 
+
+
+/*- injected dox -*/
+/**
+  * @brief  Initializes the RCC extended peripherals clocks according to the specified parameters in the
+  *         RCC_PeriphCLKInitTypeDef.
+  * @param  PeriphClkInit pointer to an RCC_PeriphCLKInitTypeDef structure that
+  *         contains the configuration information for the Extended Peripherals clocks(RTC clock).
+  *
+  * @note   Care must be taken when HAL_RCCEx_PeriphCLKConfig() is used to select 
+  *         the RTC clock source; in this case the Backup domain will be reset in  
+  *         order to modify the RTC Clock source, as consequence RTC registers (including 
+  *         the backup registers) are set to their reset values.
+  *
+  * @note   In case of STM32F105xC or STM32F107xC devices, PLLI2S will be enabled if requested on 
+  *         one of 2 I2S interfaces. When PLLI2S is enabled, you need to call HAL_RCCEx_DisablePLLI2S to
+  *         manually disable it.
+  *
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit);
-void              HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit);
-uint32_t          HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Get the PeriphClkInit according to the internal
+  * RCC configuration registers.
+  * @param  PeriphClkInit pointer to an RCC_PeriphCLKInitTypeDef structure that 
+  *         returns the configuration information for the Extended Peripherals clocks(RTC, I2S, ADC clocks).
+  * @retval None
+  */
+void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns the peripheral clock frequency
+  * @note   Returns 0 if peripheral clock is unknown
+  * @param  PeriphClk Peripheral clock identifier
+  *         This parameter can be one of the following values:
+  *            @arg @ref RCC_PERIPHCLK_RTC  RTC peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_ADC  ADC peripheral clock
+  @if STM32F103xE
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  @endif
+  @if STM32F103xG
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  @endif
+  @if STM32F105xC
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_USB  USB peripheral clock
+  @endif
+  @if STM32F107xC
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S3 I2S3 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_I2S2 I2S2 peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_USB  USB peripheral clock
+  @endif
+  @if STM32F102xx
+  *            @arg @ref RCC_PERIPHCLK_USB  USB peripheral clock
+  @endif
+  @if STM32F103xx
+  *            @arg @ref RCC_PERIPHCLK_USB  USB peripheral clock
+  @endif
+  * @retval Frequency in Hz (0: means that no available frequency for the peripheral)
+  */
+uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk);
 
 /**
   * @}
@@ -1886,7 +1965,25 @@ uint32_t          HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk);
 /** @addtogroup RCCEx_Exported_Functions_Group2
   * @{
   */
+
+
+/*- injected dox -*/
+/**
+  * @brief  Enable PLLI2S
+  * @param  PLLI2SInit pointer to an RCC_PLLI2SInitTypeDef structure that
+  *         contains the configuration information for the PLLI2S
+  * @note   The PLLI2S configuration not modified if used by I2S2 or I2S3 Interface.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_RCCEx_EnablePLLI2S(RCC_PLLI2SInitTypeDef  *PLLI2SInit);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Disable PLLI2S
+  * @note   PLLI2S is not disabled if used by I2S2 or I2S3 Interface.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_RCCEx_DisablePLLI2S(void);
 
 /**
@@ -1896,7 +1993,25 @@ HAL_StatusTypeDef HAL_RCCEx_DisablePLLI2S(void);
 /** @addtogroup RCCEx_Exported_Functions_Group3
   * @{
   */
+
+
+/*- injected dox -*/
+/**
+  * @brief  Enable PLL2
+  * @param  PLL2Init pointer to an RCC_PLL2InitTypeDef structure that
+  *         contains the configuration information for the PLL2
+  * @note   The PLL2 configuration not modified if used indirectly as system clock.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_RCCEx_EnablePLL2(RCC_PLL2InitTypeDef  *PLL2Init);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Disable PLL2
+  * @note   PLL2 is not disabled if used indirectly as system clock.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_RCCEx_DisablePLL2(void);
 
 /**

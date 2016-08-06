@@ -70,11 +70,49 @@
   * @{
   */
 #if defined (USB_OTG_FS)
+
+
+/*- injected dox -*/
+/**
+  * @brief  Set Tx FIFO
+  * @param  hpcd: PCD handle
+  * @param  fifo: The number of Tx fifo
+  * @param  size: Fifo size
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_PCDEx_SetTxFiFo(PCD_HandleTypeDef *hpcd, uint8_t fifo, uint16_t size);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Set Rx FIFO
+  * @param  hpcd: PCD handle
+  * @param  size: Size of Rx fifo
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_PCDEx_SetRxFiFo(PCD_HandleTypeDef *hpcd, uint16_t size);
 #endif /* USB_OTG_FS */
 
 #if defined (USB)
+
+
+/*- injected dox -*/
+/**
+  * @brief  Configure PMA for EP
+  * @param  hpcd : Device instance
+  * @param  ep_addr: endpoint address
+  * @param  ep_kind: endpoint Kind
+  *                  USB_SNG_BUF: Single Buffer used
+  *                  USB_DBL_BUF: Double Buffer used
+  * @param  pmaadress: EP address in The PMA: In case of single buffer endpoint
+  *                   this parameter is 16-bit value providing the address
+  *                   in PMA allocated to endpoint.
+  *                   In case of double buffer endpoint this parameter
+  *                   is a 32-bit value providing the endpoint buffer 0 address
+  *                   in the LSB part of 32-bit value and endpoint buffer 1 address
+  *                   in the MSB part of 32-bit value.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, 
                                      uint16_t ep_addr,
                                      uint16_t ep_kind,

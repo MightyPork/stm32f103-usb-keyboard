@@ -765,8 +765,58 @@ typedef struct
   * @{
   */
 /* IO operation functions *****************************************************/
-HAL_StatusTypeDef  HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError);
-HAL_StatusTypeDef  HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Perform a mass erase or erase the specified FLASH memory pages
+  * @note   To correctly run this function, the @ref HAL_FLASH_Unlock() function
+  *         must be called before.
+  *         Call the @ref HAL_FLASH_Lock() to disable the flash memory access 
+  *         (recommended to protect the FLASH memory against possible unwanted operation)
+  * @param[in]  pEraseInit pointer to an FLASH_EraseInitTypeDef structure that
+  *         contains the configuration information for the erasing.
+  *
+  * @param[out]  PageError pointer to variable  that
+  *         contains the configuration information on faulty page in case of error
+  *         (0xFFFFFFFF means that all the pages have been correctly erased)
+  *
+  * @retval HAL_StatusTypeDef HAL Status
+  */
+HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Perform a mass erase or erase the specified FLASH memory pages
+  * @note   To correctly run this function, the @ref HAL_FLASH_Unlock() function
+  *         must be called before.
+  *         Call the @ref HAL_FLASH_Lock() to disable the flash memory access 
+  *         (recommended to protect the FLASH memory against possible unwanted operation)
+  * @param[in]  pEraseInit pointer to an FLASH_EraseInitTypeDef structure that
+  *         contains the configuration information for the erasing.
+  *
+  * @param[out]  PageError pointer to variable  that
+  *         contains the configuration information on faulty page in case of error
+  *         (0xFFFFFFFF means that all the pages have been correctly erased)
+  *
+  * @retval HAL_StatusTypeDef HAL Status
+  */
+
+
+/*- injected dox -*/
+/**
+  * @brief  Perform a mass erase or erase the specified FLASH memory pages with interrupt enabled
+  * @note   To correctly run this function, the @ref HAL_FLASH_Unlock() function
+  *         must be called before.
+  *         Call the @ref HAL_FLASH_Lock() to disable the flash memory access 
+  *         (recommended to protect the FLASH memory against possible unwanted operation)
+  * @param  pEraseInit pointer to an FLASH_EraseInitTypeDef structure that
+  *         contains the configuration information for the erasing.
+  *
+  * @retval HAL_StatusTypeDef HAL Status
+  */
+HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit);
 
 /**
   * @}
@@ -776,10 +826,58 @@ HAL_StatusTypeDef  HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit);
   * @{
   */
 /* Peripheral Control functions ***********************************************/
-HAL_StatusTypeDef  HAL_FLASHEx_OBErase(void);
-HAL_StatusTypeDef  HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit);
-void               HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
-uint32_t           HAL_FLASHEx_OBGetUserData(uint32_t DATAAdress);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Erases the FLASH option bytes.
+  * @note   This functions erases all option bytes except the Read protection (RDP).
+  *         The function @ref HAL_FLASH_Unlock() should be called before to unlock the FLASH interface
+  *         The function @ref HAL_FLASH_OB_Unlock() should be called before to unlock the options bytes
+  *         The function @ref HAL_FLASH_OB_Launch() should be called after to force the reload of the options bytes
+  *         (system reset will occur)
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_FLASHEx_OBErase(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Program option bytes
+  * @note   The function @ref HAL_FLASH_Unlock() should be called before to unlock the FLASH interface
+  *         The function @ref HAL_FLASH_OB_Unlock() should be called before to unlock the options bytes
+  *         The function @ref HAL_FLASH_OB_Launch() should be called after to force the reload of the options bytes
+  *         (system reset will occur)
+  *
+  * @param  pOBInit pointer to an FLASH_OBInitStruct structure that
+  *         contains the configuration information for the programming.
+  *
+  * @retval HAL_StatusTypeDef HAL Status
+  */
+HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Get the Option byte configuration
+  * @param  pOBInit pointer to an FLASH_OBInitStruct structure that
+  *         contains the configuration information for the programming.
+  *
+  * @retval None
+  */
+void HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Get the Option byte user data
+  * @param  DATAAdress Address of the option byte DATA
+  *          This parameter can be one of the following values:
+  *            @arg @ref OB_DATA_ADDRESS_DATA0
+  *            @arg @ref OB_DATA_ADDRESS_DATA1
+  * @retval Value programmed in USER data
+  */
+uint32_t HAL_FLASHEx_OBGetUserData(uint32_t DATAAdress);
 /**
   * @}
   */

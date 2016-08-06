@@ -344,8 +344,35 @@ typedef struct
   */
 
 /* Initialization and de-initialization functions *******************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Deinitializes the PWR peripheral registers to their default reset values.  
+  * @retval None
+  */
 void HAL_PWR_DeInit(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Enables access to the backup domain (RTC registers, RTC
+  *         backup data registers ).
+  * @note   If the HSE divided by 128 is used as the RTC clock, the
+  *         Backup Domain Access should be kept enabled.
+  * @retval None
+  */
 void HAL_PWR_EnableBkUpAccess(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Disables access to the backup domain (RTC registers, RTC
+  *         backup data registers).
+  * @note   If the HSE divided by 128 is used as the RTC clock, the
+  *         Backup Domain Access should be kept enabled.
+  * @retval None
+  */
 void HAL_PWR_DisableBkUpAccess(void);
 
 /**
@@ -357,27 +384,167 @@ void HAL_PWR_DisableBkUpAccess(void);
   */
 
 /* Peripheral Control functions  ************************************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Configures the voltage threshold detected by the Power Voltage Detector(PVD).
+  * @param  sConfigPVD: pointer to an PWR_PVDTypeDef structure that contains the configuration
+  *         information for the PVD.
+  * @note   Refer to the electrical characteristics of your device datasheet for
+  *         more details about the voltage threshold corresponding to each
+  *         detection level.
+  * @retval None
+  */
 void HAL_PWR_ConfigPVD(PWR_PVDTypeDef *sConfigPVD);
 /* #define HAL_PWR_ConfigPVD 12*/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Enables the Power Voltage Detector(PVD).
+  * @retval None
+  */
 void HAL_PWR_EnablePVD(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Disables the Power Voltage Detector(PVD).
+  * @retval None
+  */
 void HAL_PWR_DisablePVD(void);
 
 /* WakeUp pins configuration functions ****************************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief Enables the WakeUp PINx functionality.
+  * @param WakeUpPinx: Specifies the Power Wake-Up pin to enable.
+  *        This parameter can be one of the following values:
+  *           @arg PWR_WAKEUP_PIN1
+  * @retval None
+  */
 void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinx);
+
+
+/*- injected dox -*/
+/**
+  * @brief Disables the WakeUp PINx functionality.
+  * @param WakeUpPinx: Specifies the Power Wake-Up pin to disable.
+  *        This parameter can be one of the following values:
+  *           @arg PWR_WAKEUP_PIN1
+  * @retval None
+  */
 void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx);
 
 /* Low Power modes configuration functions ************************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief Enters Stop mode. 
+  * @note  In Stop mode, all I/O pins keep the same state as in Run mode.
+  * @note  When exiting Stop mode by using an interrupt or a wakeup event,
+  *        HSI RC oscillator is selected as system clock.
+  * @note  When the voltage regulator operates in low power mode, an additional
+  *         startup delay is incurred when waking up from Stop mode. 
+  *         By keeping the internal regulator ON during Stop mode, the consumption
+  *         is higher although the startup time is reduced.    
+  * @param Regulator: Specifies the regulator state in Stop mode.
+  *          This parameter can be one of the following values:
+  *            @arg PWR_MAINREGULATOR_ON: Stop mode with regulator ON
+  *            @arg PWR_LOWPOWERREGULATOR_ON: Stop mode with low power regulator ON
+  * @param STOPEntry: Specifies if Stop mode in entered with WFI or WFE instruction.
+  *          This parameter can be one of the following values:
+  *            @arg PWR_STOPENTRY_WFI: Enter Stop mode with WFI instruction
+  *            @arg PWR_STOPENTRY_WFE: Enter Stop mode with WFE instruction   
+  * @retval None
+  */
 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry);
+
+
+/*- injected dox -*/
+/**
+  * @brief Enters Sleep mode.
+  * @note  In Sleep mode, all I/O pins keep the same state as in Run mode.
+  * @param Regulator: Regulator state as no effect in SLEEP mode -  allows to support portability from legacy software
+  * @param SLEEPEntry: Specifies if SLEEP mode is entered with WFI or WFE instruction.
+  *           When WFI entry is used, tick interrupt have to be disabled if not desired as 
+  *           the interrupt wake up source.
+  *           This parameter can be one of the following values:
+  *            @arg PWR_SLEEPENTRY_WFI: enter SLEEP mode with WFI instruction
+  *            @arg PWR_SLEEPENTRY_WFE: enter SLEEP mode with WFE instruction
+  * @retval None
+  */
 void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry);
+
+
+/*- injected dox -*/
+/**
+  * @brief Enters Standby mode.
+  * @note  In Standby mode, all I/O pins are high impedance except for:
+  *          - Reset pad (still available) 
+  *          - TAMPER pin if configured for tamper or calibration out.
+  *          - WKUP pin (PA0) if enabled.
+  * @retval None
+  */
 void HAL_PWR_EnterSTANDBYMode(void);
 
+
+
+/*- injected dox -*/
+/**
+  * @brief Indicates Sleep-On-Exit when returning from Handler mode to Thread mode. 
+  * @note Set SLEEPONEXIT bit of SCR register. When this bit is set, the processor 
+  *       re-enters SLEEP mode when an interruption handling is over.
+  *       Setting this bit is useful when the processor is expected to run only on
+  *       interruptions handling.         
+  * @retval None
+  */
 void HAL_PWR_EnableSleepOnExit(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief Disables Sleep-On-Exit feature when returning from Handler mode to Thread mode. 
+  * @note Clears SLEEPONEXIT bit of SCR register. When this bit is set, the processor 
+  *       re-enters SLEEP mode when an interruption handling is over.          
+  * @retval None
+  */
 void HAL_PWR_DisableSleepOnExit(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief Enables CORTEX M3 SEVONPEND bit. 
+  * @note Sets SEVONPEND bit of SCR register. When this bit is set, this causes 
+  *       WFE to wake up when an interrupt moves from inactive to pended.
+  * @retval None
+  */
 void HAL_PWR_EnableSEVOnPend(void);
+
+
+/*- injected dox -*/
+/**
+  * @brief Disables CORTEX M3 SEVONPEND bit. 
+  * @note Clears SEVONPEND bit of SCR register. When this bit is set, this causes 
+  *       WFE to wake up when an interrupt moves from inactive to pended.         
+  * @retval None
+  */
 void HAL_PWR_DisableSEVOnPend(void);
 
 
 
+
+
+/*- injected dox -*/
+/**
+  * @brief  This function handles the PWR PVD interrupt request.
+  * @note   This API should be called under the PVD_IRQHandler().
+  * @retval None
+  */
 void HAL_PWR_PVD_IRQHandler(void);
 void HAL_PWR_PVDCallback(void);
 /**

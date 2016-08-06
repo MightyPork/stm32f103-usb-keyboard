@@ -374,7 +374,26 @@ typedef struct __DMA_HandleTypeDef
   * @{
   */
 /* Initialization and de-initialization functions *****************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Initializes the DMA according to the specified
+  *         parameters in the DMA_InitTypeDef and create the associated handle.
+  * @param  hdma: Pointer to a DMA_HandleTypeDef structure that contains
+  *               the configuration information for the specified DMA Channel.  
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma);
+
+
+/*- injected dox -*/
+/**
+  * @brief  DeInitializes the DMA peripheral 
+  * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+  *               the configuration information for the specified DMA Channel.  
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_DMA_DeInit (DMA_HandleTypeDef *hdma);
 /**
   * @}
@@ -384,11 +403,82 @@ HAL_StatusTypeDef HAL_DMA_DeInit (DMA_HandleTypeDef *hdma);
   * @{
   */
 /* IO operation functions *****************************************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Starts the DMA Transfer.
+  * @param  hdma      : pointer to a DMA_HandleTypeDef structure that contains
+  *                     the configuration information for the specified DMA Channel.  
+  * @param  SrcAddress: The source memory Buffer address
+  * @param  DstAddress: The destination memory Buffer address
+  * @param  DataLength: The length of data to be transferred from source to destination
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_DMA_Start (DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Starts the DMA Transfer.
+  * @param  hdma      : pointer to a DMA_HandleTypeDef structure that contains
+  *                     the configuration information for the specified DMA Channel.  
+  * @param  SrcAddress: The source memory Buffer address
+  * @param  DstAddress: The destination memory Buffer address
+  * @param  DataLength: The length of data to be transferred from source to destination
+  * @retval HAL status
+  */
+
+
+/*- injected dox -*/
+/**
+  * @brief  Start the DMA Transfer with interrupt enabled.
+  * @param  hdma:       pointer to a DMA_HandleTypeDef structure that contains
+  *                     the configuration information for the specified DMA Channel.  
+  * @param  SrcAddress: The source memory Buffer address
+  * @param  DstAddress: The destination memory Buffer address
+  * @param  DataLength: The length of data to be transferred from source to destination
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_DMA_Start_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Aborts the DMA Transfer.
+  * @param  hdma  : pointer to a DMA_HandleTypeDef structure that contains
+  *                 the configuration information for the specified DMA Channel.
+  *                   
+  * @note  After disabling a DMA Channel, a check for wait until the DMA Channel is 
+  *        effectively disabled is added. If a Channel is disabled 
+  *        while a data transfer is ongoing, the current data will be transferred
+  *        and the Channel will be effectively disabled only after the transfer of
+  *        this single data is finished.  
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_DMA_Abort(DMA_HandleTypeDef *hdma);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Polling for transfer complete.
+  * @param  hdma:    pointer to a DMA_HandleTypeDef structure that contains
+  *                  the configuration information for the specified DMA Channel.
+  * @param  CompleteLevel: Specifies the DMA level complete.  
+  * @param  Timeout:       Timeout duration.
+  * @retval HAL status
+  */
 HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, uint32_t CompleteLevel, uint32_t Timeout);
-void              HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Handles DMA interrupt request.
+  * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+  *               the configuration information for the specified DMA Channel.  
+  * @retval None
+  */
+void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma);
 /**
   * @}
   */
@@ -397,8 +487,26 @@ void              HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma);
   * @{
   */
 /* Peripheral State and Error functions ***************************************/
+
+
+/*- injected dox -*/
+/**
+  * @brief  Returns the DMA state.
+  * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+  *               the configuration information for the specified DMA Channel.  
+  * @retval HAL state
+  */
 HAL_DMA_StateTypeDef HAL_DMA_GetState(DMA_HandleTypeDef *hdma);
-uint32_t             HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
+
+
+/*- injected dox -*/
+/**
+  * @brief  Return the DMA error code
+  * @param  hdma : pointer to a DMA_HandleTypeDef structure that contains
+  *              the configuration information for the specified DMA Channel.
+  * @retval DMA Error Code
+  */
+uint32_t HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
 /**
   * @}
   */
