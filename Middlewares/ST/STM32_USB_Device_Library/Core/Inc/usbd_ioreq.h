@@ -85,28 +85,100 @@
   * @{
   */ 
 
-USBD_StatusTypeDef  USBD_CtlSendData (USBD_HandleTypeDef  *pdev, 
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_CtlSendData
+*         send data on the ctl pipe
+* @param  pdev: device instance
+* @param  buff: pointer to data buffer
+* @param  len: length of data to be sent
+* @retval status
+*/
+USBD_StatusTypeDef USBD_CtlSendData (USBD_HandleTypeDef  *pdev, 
                                uint8_t *buf,
                                uint16_t len);
 
 
-USBD_StatusTypeDef  USBD_CtlContinueSendData (USBD_HandleTypeDef  *pdev, 
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_CtlContinueSendData
+*         continue sending data on the ctl pipe
+* @param  pdev: device instance
+* @param  buff: pointer to data buffer
+* @param  len: length of data to be sent
+* @retval status
+*/
+USBD_StatusTypeDef USBD_CtlContinueSendData (USBD_HandleTypeDef  *pdev, 
                                uint8_t *pbuf,
                                uint16_t len);
 
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_CtlPrepareRx
+*         receive data on the ctl pipe
+* @param  pdev: device instance
+* @param  buff: pointer to data buffer
+* @param  len: length of data to be received
+* @retval status
+*/
 USBD_StatusTypeDef USBD_CtlPrepareRx (USBD_HandleTypeDef  *pdev, 
                                uint8_t *pbuf,                                 
                                uint16_t len);
 
-USBD_StatusTypeDef  USBD_CtlContinueRx (USBD_HandleTypeDef  *pdev, 
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_CtlContinueRx
+*         continue receive data on the ctl pipe
+* @param  pdev: device instance
+* @param  buff: pointer to data buffer
+* @param  len: length of data to be received
+* @retval status
+*/
+USBD_StatusTypeDef USBD_CtlContinueRx (USBD_HandleTypeDef  *pdev, 
                               uint8_t *pbuf,                                          
                               uint16_t len);
 
-USBD_StatusTypeDef  USBD_CtlSendStatus (USBD_HandleTypeDef  *pdev);
 
-USBD_StatusTypeDef  USBD_CtlReceiveStatus (USBD_HandleTypeDef  *pdev);
 
-uint16_t  USBD_GetRxCount (USBD_HandleTypeDef  *pdev , 
+/*- injected dox -*/
+/**
+* @brief  USBD_CtlSendStatus
+*         send zero lzngth packet on the ctl pipe
+* @param  pdev: device instance
+* @retval status
+*/
+USBD_StatusTypeDef USBD_CtlSendStatus (USBD_HandleTypeDef  *pdev);
+
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_CtlReceiveStatus
+*         receive zero lzngth packet on the ctl pipe
+* @param  pdev: device instance
+* @retval status
+*/
+USBD_StatusTypeDef USBD_CtlReceiveStatus (USBD_HandleTypeDef  *pdev);
+
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_GetRxCount
+*         returns the received data length
+* @param  pdev: device instance
+* @param  ep_addr: endpoint address
+* @retval Rx Data blength
+*/
+uint16_t USBD_GetRxCount (USBD_HandleTypeDef  *pdev , 
                            uint8_t epnum);
 
 /**

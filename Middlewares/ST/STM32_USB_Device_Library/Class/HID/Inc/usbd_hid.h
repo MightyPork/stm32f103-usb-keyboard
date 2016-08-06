@@ -122,10 +122,29 @@ extern USBD_ClassTypeDef  USBD_HID;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */ 
+
+
+/*- injected dox -*/
+/**
+  * @brief  USBD_HID_SendReport 
+  *         Send HID Report
+  * @param  pdev: device instance
+  * @param  buff: pointer to report
+  * @retval status
+  */
 uint8_t USBD_HID_SendReport (USBD_HandleTypeDef *pdev, 
                                  uint8_t *report,
                                  uint16_t len);
 
+
+
+/*- injected dox -*/
+/**
+  * @brief  USBD_HID_GetPollingInterval 
+  *         return polling interval from endpoint descriptor
+  * @param  pdev: device instance
+  * @retval polling interval
+  */
 uint32_t USBD_HID_GetPollingInterval (USBD_HandleTypeDef *pdev);
 
 /**

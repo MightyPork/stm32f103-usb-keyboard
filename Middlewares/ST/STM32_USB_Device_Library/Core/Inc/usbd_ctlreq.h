@@ -23,7 +23,7 @@
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USB_REQUEST_H
@@ -40,18 +40,18 @@
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
   */
-  
+
 /** @defgroup USBD_REQ
   * @brief header file for the usbd_req.c file
   * @{
-  */ 
+  */
 
 /** @defgroup USBD_REQ_Exported_Defines
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup USBD_REQ_Exported_Types
@@ -59,41 +59,102 @@
   */
 /**
   * @}
-  */ 
+  */
 
 
 
 /** @defgroup USBD_REQ_Exported_Macros
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup USBD_REQ_Exported_Variables
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup USBD_REQ_Exported_FunctionsPrototype
   * @{
-  */ 
-
-USBD_StatusTypeDef  USBD_StdDevReq (USBD_HandleTypeDef  *pdev, USBD_SetupReqTypedef  *req);
-USBD_StatusTypeDef  USBD_StdItfReq (USBD_HandleTypeDef  *pdev, USBD_SetupReqTypedef  *req);
-USBD_StatusTypeDef  USBD_StdEPReq  (USBD_HandleTypeDef  *pdev, USBD_SetupReqTypedef  *req);
+  */
 
 
+
+/*- injected dox -*/
+/**
+* @brief  USBD_StdDevReq
+*         Handle standard usb device requests
+* @param  pdev: device instance
+* @param  req: usb request
+* @retval status
+*/
+USBD_StatusTypeDef USBD_StdDevReq (USBD_HandleTypeDef  *pdev, USBD_SetupReqTypedef  *req);
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_StdItfReq
+*         Handle standard usb interface requests
+* @param  pdev: device instance
+* @param  req: usb request
+* @retval status
+*/
+USBD_StatusTypeDef USBD_StdItfReq (USBD_HandleTypeDef  *pdev, USBD_SetupReqTypedef  *req);
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_StdEPReq
+*         Handle standard usb endpoint requests
+* @param  pdev: device instance
+* @param  req: usb request
+* @retval status
+*/
+USBD_StatusTypeDef USBD_StdEPReq  (USBD_HandleTypeDef  *pdev, USBD_SetupReqTypedef  *req);
+
+
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_CtlError 
+*         Handle USB low level Error
+* @param  pdev: device instance
+* @param  req: usb request
+* @retval None
+*/
 void USBD_CtlError  (USBD_HandleTypeDef  *pdev, USBD_SetupReqTypedef *req);
 
+
+
+/*- injected dox -*/
+/**
+* @brief  USBD_ParseSetupRequest
+*         Copy buffer into setup structure
+* @param  pdev: device instance
+* @param  req: usb request
+* @retval None
+*/
 void USBD_ParseSetupRequest (USBD_SetupReqTypedef *req, uint8_t *pdata);
 
+
+
+/*- injected dox -*/
+/**
+  * @brief  USBD_GetString
+  *         Convert Ascii string into unicode one
+  * @param  desc : descriptor buffer
+  * @param  unicode : Formatted string buffer (unicode)
+  * @param  len : descriptor length
+  * @retval None
+  */
 void USBD_GetString         (uint8_t *desc, uint8_t *unicode, uint16_t *len);
 /**
   * @}
-  */ 
+  */
 
 #ifdef __cplusplus
 }
@@ -103,11 +164,11 @@ void USBD_GetString         (uint8_t *desc, uint8_t *unicode, uint16_t *len);
 
 /**
   * @}
-  */ 
+  */
 
 /**
 * @}
-*/ 
+*/
 
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
