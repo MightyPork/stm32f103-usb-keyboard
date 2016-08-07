@@ -22,7 +22,7 @@ include_directories(Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc)
 include_directories(Middlewares/ST/STM32_USB_Device_Library/Core/Inc)
 
 add_definitions(-DSTM32F103x6)
-add_executable(${PROJECT_NAME}.elf ${USER_SOURCES} ${LINKER_SCRIPT} Inc/main.h)
+add_executable(${PROJECT_NAME}.elf ${USER_SOURCES} ${LINKER_SCRIPT})
 
 target_link_libraries(${PROJECT_NAME}.elf HAL CMSIS USBFS)
 

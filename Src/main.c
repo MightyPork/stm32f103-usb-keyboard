@@ -31,6 +31,10 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
+#include <usbd_hid.h>
+#include <stdbool.h>
+#include <keyboard.h>
+#include <circbuf.h>
 #include "stm32f1xx_hal.h"
 #include "usart.h"
 #include "usb_device.h"
@@ -59,27 +63,68 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN 0 */
 
+CircBuf *key_cbuf;
+
+
+void fkey_press(uint8_t key) {
+	KeyEvent ke = {key, true};
+	cbuf_append(key_cbuf, &ke);
+}
+
+void fkey_release(uint8_t key) {
+	KeyEvent ke = {key, false};
+	cbuf_append(key_cbuf, &ke);
+}
+
+void fkey_type(uint8_t key, bool shift) {
+	if(shift) fkey_press(KEY_LEFTSHIFT);
+	fkey_press(key);
+	fkey_release(key);
+	if(shift) fkey_release(KEY_LEFTSHIFT);
+}
+
+
 /** Print a debug message */
-void dbg(const char *msg)
-{
+void dbg(const char *msg) {
 	HAL_UART_Transmit(&huart2, (char *) msg, (uint16_t) strlen(msg), 10);
 }
 
 
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	UNUSED(GPIO_Pin);
 
-	dbg("EXTI!\r\n");
-}
+	static uint32_t lasttick = 0;
 
+	dbg("EXTI!\r\n");
+
+	if (HAL_GetTick() - lasttick < 1000) {
+		dbg("Discard, too soon\r\n");
+		return;
+	}
+
+	dbg("HEYOOO\r\n");
+
+	fkey_type(KEY_H, true);
+	fkey_type(KEY_E, false);
+	fkey_type(KEY_L, false);
+	fkey_type(KEY_L, false);
+	fkey_type(KEY_O, false);
+	fkey_type(KEY_SPACE, false);
+	fkey_type(KEY_W, true);
+	fkey_type(KEY_O, false);
+	fkey_type(KEY_R, false);
+	fkey_type(KEY_L, false);
+	fkey_type(KEY_D, false);
+	fkey_type(KEY_ENTER, false);
+}
 
 /* USER CODE END 0 */
 
-int main(void)
-{
-
+int main(void) {
 	/* USER CODE BEGIN 1 */
+	kybd_clear();
+
+	key_cbuf = cbuf_create(100, sizeof(KeyEvent));
 
 	/* USER CODE END 1 */
 
@@ -104,6 +149,8 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
+
+	dbg("-- READY! --\r\n\r\n");
 
 	char msg[] = "A\r\n";
 
@@ -132,8 +179,7 @@ int main(void)
 
 /** System Clock Configuration
 */
-void SystemClock_Config(void)
-{
+void SystemClock_Config(void) {
 
 	RCC_OscInitTypeDef RCC_OscInitStruct;
 	RCC_ClkInitTypeDef RCC_ClkInitStruct;
@@ -182,8 +228,7 @@ void SystemClock_Config(void)
   * @param  None
   * @retval None
   */
-void Error_Handler(void)
-{
+void Error_Handler(void) {
 	/* USER CODE BEGIN Error_Handler */
 	/* User can add his own implementation to report the HAL error return state */
 	while (1) {

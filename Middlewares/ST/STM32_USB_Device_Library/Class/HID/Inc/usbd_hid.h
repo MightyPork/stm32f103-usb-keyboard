@@ -50,7 +50,8 @@ extern "C" {
   * @{
   */
 #define HID_EPIN_ADDR                 0x81
-#define HID_EPIN_SIZE                 0x04
+// CHANGED
+#define HID_EPIN_SIZE                 0x08
 
 #define USB_HID_CONFIG_DESC_SIZ       34
 #define USB_HID_DESC_SIZ              9
