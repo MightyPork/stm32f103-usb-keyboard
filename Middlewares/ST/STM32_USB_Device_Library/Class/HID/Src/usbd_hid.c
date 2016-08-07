@@ -118,29 +118,34 @@ static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum);
 
 USBD_ClassTypeDef USBD_HID =
 		{
-				USBD_HID_Init,
-				USBD_HID_DeInit,
-				USBD_HID_Setup,
-				NULL, /*EP0_TxSent*/
-				NULL, /*EP0_RxReady*/
-				USBD_HID_DataIn, /*DataIn*/
-				NULL, /*DataOut*/
-				NULL, /*SOF */
-				NULL,
-				NULL,
-				USBD_HID_GetCfgDesc,
-				USBD_HID_GetCfgDesc,
-				USBD_HID_GetCfgDesc,
-				USBD_HID_GetDeviceQualifierDesc,
+				.Init = USBD_HID_Init,
+				.DeInit = USBD_HID_DeInit,
+
+				/* Control Endpoints*/
+				.Setup = USBD_HID_Setup,
+				.EP0_TxSent = NULL,
+				.EP0_RxReady = NULL,
+
+				/* Class Specific Endpoints*/
+				.DataIn = USBD_HID_DataIn,
+				.DataOut = NULL,
+				.SOF = NULL,
+				.IsoINIncomplete = NULL, // unused
+				.IsoOUTIncomplete = NULL, // unused
+
+				/* Descriptor getters */
+				.GetHSConfigDescriptor = USBD_HID_GetCfgDesc,
+				.GetFSConfigDescriptor = USBD_HID_GetCfgDesc,
+				.GetOtherSpeedConfigDescriptor = USBD_HID_GetCfgDesc,
+				.GetDeviceQualifierDescriptor = USBD_HID_GetDeviceQualifierDesc,
 		};
 
 /* USB HID device Configuration Descriptor */
 __ALIGN_BEGIN static uint8_t USBD_HID_CfgDesc[USB_HID_CONFIG_DESC_SIZ]  __ALIGN_END =
 		{
-				0x09, /* bLength: Configuration Descriptor size */
+				0x09,         /* bLength: Configuration Descriptor size */
 				USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
-				USB_HID_CONFIG_DESC_SIZ,
-				/* wTotalLength: Bytes returned */
+				USB_HID_CONFIG_DESC_SIZ, /* wTotalLength: Bytes returned */
 				0x00,
 				0x01,         /*bNumInterfaces: 1 interface*/
 				0x01,         /*bConfigurationValue: Configuration value*/
@@ -279,8 +284,7 @@ __ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[HID_MOUSE_REPORT_DESC_SIZE]  _
   * @param  cfgidx: Configuration index
   * @retval status
   */
-static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev,
-                             uint8_t cfgidx)
+static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
 	uint8_t ret = 0;
 
@@ -308,8 +312,7 @@ static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev,
   * @param  cfgidx: Configuration index
   * @retval status
   */
-static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev,
-                               uint8_t cfgidx)
+static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
 	/* Close HID EPs */
 	USBD_LL_CloseEP(pdev,
@@ -331,8 +334,7 @@ static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev,
   * @param  req: usb requests
   * @retval status
   */
-static uint8_t USBD_HID_Setup(USBD_HandleTypeDef *pdev,
-                              USBD_SetupReqTypedef *req)
+static uint8_t USBD_HID_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
 	uint16_t len = 0;
 	uint8_t *pbuf = NULL;
@@ -408,9 +410,7 @@ static uint8_t USBD_HID_Setup(USBD_HandleTypeDef *pdev,
   * @param  buff: pointer to report
   * @retval status
   */
-uint8_t USBD_HID_SendReport(USBD_HandleTypeDef *pdev,
-                            uint8_t *report,
-                            uint16_t len)
+uint8_t USBD_HID_SendReport(USBD_HandleTypeDef *pdev, uint8_t *report, uint16_t len)
 {
 	USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *) pdev->pClassData;
 
@@ -474,8 +474,7 @@ static uint8_t *USBD_HID_GetCfgDesc(uint16_t *length)
   * @param  epnum: endpoint index
   * @retval status
   */
-static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev,
-                               uint8_t epnum)
+static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
 
 	/* Ensure that the FIFO is empty before a new transfer, this condition could

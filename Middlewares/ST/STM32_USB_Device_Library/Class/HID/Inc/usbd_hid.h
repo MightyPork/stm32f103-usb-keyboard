@@ -30,7 +30,7 @@
 #define __USB_HID_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -39,22 +39,23 @@
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
   */
-  
+
 /** @defgroup USBD_HID
   * @brief This file is the Header file for usbd_hid.c
   * @{
-  */ 
+  */
 
 
 /** @defgroup USBD_HID_Exported_Defines
   * @{
-  */ 
+  */
 #define HID_EPIN_ADDR                 0x81
 #define HID_EPIN_SIZE                 0x04
 
 #define USB_HID_CONFIG_DESC_SIZ       34
 #define USB_HID_DESC_SIZ              9
 #define HID_MOUSE_REPORT_DESC_SIZE    74
+#define HID_KEYBD_REPORT_DESC_SIZE    63
 
 #define HID_DESCRIPTOR_TYPE           0x21
 #define HID_REPORT_DESC               0x22
@@ -73,55 +74,51 @@
 #define HID_REQ_GET_REPORT            0x01
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup USBD_CORE_Exported_TypesDefinitions
   * @{
   */
-typedef enum
-{
-  HID_IDLE = 0,
-  HID_BUSY,
-}
-HID_StateTypeDef; 
+typedef enum {
+	HID_IDLE = 0,
+	HID_BUSY,
+} HID_StateTypeDef;
 
 
-typedef struct
-{
-  uint32_t             Protocol;   
-  uint32_t             IdleState;  
-  uint32_t             AltSetting;
-  HID_StateTypeDef     state;  
-}
-USBD_HID_HandleTypeDef; 
+typedef struct {
+	uint32_t Protocol;
+	uint32_t IdleState;
+	uint32_t AltSetting;
+	HID_StateTypeDef state;
+} USBD_HID_HandleTypeDef;
 /**
   * @}
-  */ 
+  */
 
 
 
 /** @defgroup USBD_CORE_Exported_Macros
   * @{
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup USBD_CORE_Exported_Variables
   * @{
-  */ 
+  */
 
-extern USBD_ClassTypeDef  USBD_HID;
-#define USBD_HID_CLASS    &USBD_HID
+extern USBD_ClassTypeDef USBD_HID;
+#define USBD_HID_CLASS   &USBD_HID
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup USB_CORE_Exported_Functions
   * @{
-  */ 
+  */
 
 
 /*- injected dox -*/
@@ -132,9 +129,9 @@ extern USBD_ClassTypeDef  USBD_HID;
   * @param  buff: pointer to report
   * @retval status
   */
-uint8_t USBD_HID_SendReport (USBD_HandleTypeDef *pdev, 
-                                 uint8_t *report,
-                                 uint16_t len);
+uint8_t USBD_HID_SendReport(USBD_HandleTypeDef *pdev,
+                            uint8_t *report,
+                            uint16_t len);
 
 
 
@@ -145,11 +142,11 @@ uint8_t USBD_HID_SendReport (USBD_HandleTypeDef *pdev,
   * @param  pdev: device instance
   * @retval polling interval
   */
-uint32_t USBD_HID_GetPollingInterval (USBD_HandleTypeDef *pdev);
+uint32_t USBD_HID_GetPollingInterval(USBD_HandleTypeDef *pdev);
 
 /**
   * @}
-  */ 
+  */
 
 #ifdef __cplusplus
 }
@@ -158,10 +155,10 @@ uint32_t USBD_HID_GetPollingInterval (USBD_HandleTypeDef *pdev);
 #endif  /* __USB_HID_H */
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
-  
+  */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
