@@ -51,7 +51,6 @@ void MX_USB_DEVICE_Init(void)
   USBD_RegisterClass(&hUsbDeviceFS, &USBD_HID);
 
   USBD_Start(&hUsbDeviceFS);
-
 }
 /**
   * @}
